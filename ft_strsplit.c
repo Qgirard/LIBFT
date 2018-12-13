@@ -3,69 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:06:56 by qgirard           #+#    #+#             */
-/*   Updated: 2018/11/16 17:06:19 by qgirard          ###   ########.fr       */
+/*   Created: 2018/11/07 10:33:28 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/14 17:42:41 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	numberwords(char const *s, char c)
+static int		separator(char c, char a)
 {
-	int i;
-	int nb;
+	if (c == a)
+		return (1);
+	if (c == '\0')
+		return (1);
+	else
+		return (0);
+}
+
+static int		ft_nbwords(char const *s, char c)
+{
+	int	i;
+	int	nb;
 
 	i = 0;
 	nb = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (s[i] && s[i] != c)
+		if (!(separator(s[i], c)))
 		{
 			nb++;
-			while (s[i] && s[i] != c)
+			while (!(separator(s[i], c)))
 				i++;
 		}
+		else
+			i++;
 	}
 	return (nb);
 }
 
-static char	**realsplit(char const *s, char c, int i, int k)
+static int		ft_malloc_fill(char **s_end, char const *s, char c, int nbwords)
 {
-	char	**tab;
-	int		j;
-
-	if (!(tab = (char **)malloc(sizeof(char *) * (numberwords(s, c)) + 1)))
-		return (NULL);
-	tab[numberwords(s, c)] = NULL;
-	while (s[i] && k < numberwords(s, c))
-	{
-		j = 0;
-		while (s[i] && s[i] == c)
-			i++;
-		while (s[i + j] && s[i + j] != c)
-			j++;
-		if (!(tab[k] = (char *)malloc(sizeof(char) * (j) + 1)))
-			return (NULL);
-		ft_strncpy(tab[k], &s[i], j);
-		tab[k][j] = '\0';
-		i = i + j;
-		k++;
-	}
-	return (tab);
-}
-
-char		**ft_strsplit(char const *s, char c)
-{
-	int		i;
-	int		k;
+	int	tmpsize;
+	int	i;
 
 	i = 0;
-	k = 0;
-	if (s != NULL)
-		return (realsplit(s, c, i, k));
-	return (NULL);
+	while (s[i] != '\0')
+	{
+		if (!(separator(s[i], c)))
+		{
+			tmpsize = 0;
+			nbwords++;
+			while (!(separator(s[i++], c)))
+				tmpsize++;
+			if (!(s_end[nbwords] = (char*)malloc(sizeof(char) * (tmpsize + 1))))
+				return (0);
+			i = i - tmpsize - 1;
+			tmpsize = 0;
+			while (!(separator(s[i], c)))
+				s_end[nbwords][tmpsize++] = s[i++];
+			s_end[nbwords][tmpsize] = '\0';
+		}
+		else
+			i++;
+	}
+	return (nbwords);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	int		nbwords;
+	char	**s_end;
+
+	if (!s)
+		return (0);
+	nbwords = ft_nbwords(s, c);
+	if (!(s_end = (char**)malloc(sizeof(char*) * nbwords + 1)))
+		return (0);
+	nbwords = -1;
+	nbwords = ft_malloc_fill(s_end, s, c, nbwords);
+	s_end[nbwords + 1] = NULL;
+	return (s_end);
 }

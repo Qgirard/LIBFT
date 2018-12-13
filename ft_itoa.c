@@ -3,56 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:39:12 by qgirard           #+#    #+#             */
-/*   Updated: 2018/11/16 15:46:41 by qgirard          ###   ########.fr       */
+/*   Created: 2018/11/08 18:50:10 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/14 18:08:00 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_converter(int n, long i, long j)
+static int		ft_count(int n)
 {
-	char *str;
+	int		i;
 
-	if (!(str = (char *)malloc(sizeof(*str) * i + 1)))
-		return (NULL);
-	str[j] = '\0';
-	j--;
 	if (n < 0)
 	{
-		str[0] = '-';
-		n = -n;
+		i = 2;
+		n *= -1;
 	}
+	else
+		i = 1;
 	if (n == 0)
-		str[j] = '0';
-	while (n != 0)
+		return (2);
+	else
 	{
-		str[j] = n % 10 + '0';
-		n = n / 10;
-		j--;
+		while (n > 0)
+		{
+			n = n / 10;
+			i++;
+		}
 	}
-	return (str);
+	return (i);
 }
 
-char		*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
-	long	i;
-	long	j;
-	long	k;
+	int		i;
+	int		neg;
+	char	*str;
 
-	i = 0;
-	k = n;
+	neg = 0;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	if (n <= 0)
-		i = 1;
-	while (k != 0)
+	i = ft_count(n);
+	if (n < 0)
 	{
-		k = k / 10;
-		i++;
+		n *= -1;
+		neg = 1;
 	}
-	j = i;
-	return (ft_converter(n, i, j));
+	if (!(str = (char*)malloc(sizeof(char) * i)))
+		return (NULL);
+	str[--i] = '\0';
+	while (i--)
+	{
+		str[i] = n % 10 + '0';
+		n /= 10;
+	}
+	if (neg == 1)
+		str[0] = '-';
+	return (str);
 }

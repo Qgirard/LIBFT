@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strnjoinf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 19:53:48 by hklein            #+#    #+#             */
-/*   Updated: 2018/11/15 18:22:56 by hklein           ###   ########.fr       */
+/*   Created: 2018/12/05 18:39:44 by hklein            #+#    #+#             */
+/*   Updated: 2018/12/05 19:45:31 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strnjoinf(char *s1, char *s2, size_t rm, size_t len)
 {
-	int	i;
+	char			*new_s;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	if ((int)rm < 0 || (int)rm > 3)
+		return (NULL);
+	if (!s1 || !s2)
+		return (NULL);
+	if ((new_s = ft_strnew(ft_strlen(s1) + ft_strlen(s2))) == NULL)
+		return (NULL);
+	ft_strcpy(new_s, s1);
+	ft_strncat(new_s, s2, len);
+	if (rm == 1 || rm == 3)
+		ft_strdel(&s1);
+	if (rm == 2 || rm == 3)
+		ft_strdel(&s2);
+	return (new_s);
 }

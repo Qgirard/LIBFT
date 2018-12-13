@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 19:53:48 by hklein            #+#    #+#             */
-/*   Updated: 2018/11/15 18:22:56 by hklein           ###   ########.fr       */
+/*   Created: 2018/11/16 12:14:33 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/16 12:41:14 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+void	ft_intswap(int *a, int *b)
 {
-	int	i;
+	int		c;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	c = *a;
+	*a = *b;
+	*b = c;
 }

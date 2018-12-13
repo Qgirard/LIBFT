@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 13:29:47 by qgirard           #+#    #+#             */
-/*   Updated: 2018/11/14 16:38:04 by qgirard          ###   ########.fr       */
+/*   Created: 2018/11/08 20:23:59 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/27 18:34:44 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,18 @@
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
+	unsigned int	i;
+	char			*str;
 
+	if (!s)
+		return (NULL);
+	if (ft_strlen((char*)s) < len || start >= ft_strlen((char*)s))
+		return (NULL);
+	if (!(str = (char*)ft_memalloc(sizeof(char) * len + 1)))
+		return (NULL);
 	i = 0;
-	j = 0;
-	if (s != NULL)
-	{
-		while (s[i] && i < start)
-			i++;
-		if (!(str = (char *)malloc(sizeof(*str) * (len + 1))))
-			return (NULL);
-		while (j < len)
-		{
-			str[j] = s[i];
-			j++;
-			i++;
-		}
-		str[j] = '\0';
-		return (str);
-	}
-	return (NULL);
+	while (i < len)
+		str[i++] = s[start++];
+	str[i] = '\0';
+	return (str);
 }

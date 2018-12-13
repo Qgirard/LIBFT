@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 13:16:08 by qgirard           #+#    #+#             */
-/*   Updated: 2018/11/14 14:53:20 by qgirard          ###   ########.fr       */
+/*   Created: 2018/11/08 20:14:22 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/08 20:15:48 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*ptr;
-	size_t	i;
+	unsigned int	i;
+	char			*str;
 
+	if (!s)
+		return (NULL);
 	i = 0;
-	if (s != NULL)
+	while (s[i] != '\0')
+		i++;
+	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	str[i] = '\0';
+	i = 0;
+	while (*s)
 	{
-		if (!(ptr = (char *)malloc(sizeof(*ptr) * (ft_strlen(s)) + 1)))
-			return (NULL);
-		while (s[i])
-		{
-			ptr[i] = f(i, s[i]);
-			i++;
-		}
-		ptr[i] = '\0';
-		return (ptr);
+		str[i] = f(i, *s);
+		s++;
+		i++;
 	}
-	return (NULL);
+	return (str);
 }

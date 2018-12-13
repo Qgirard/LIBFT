@@ -3,48 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 14:00:54 by qgirard           #+#    #+#             */
-/*   Updated: 2018/11/16 15:46:24 by qgirard          ###   ########.fr       */
+/*   Created: 2018/11/08 20:24:48 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/15 16:14:15 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static char	*ft_realtrim(char const *s, size_t i, size_t j, size_t k)
+static char	*ft_returnblank(void)
 {
-	char	*str;
+	char	*s_new;
 
-	while (s[i] == '\n' || s[i] == ' ' || s[i] == '\t')
-		i++;
-	if (!s[k])
-		k--;
-	while (s[k] == '\n' || s[k] == ' ' || s[k] == '\t')
-	{
-		k--;
-		j++;
-	}
-	if (i == j && i == ft_strlen(s))
-		str = ft_strsub(s, i, 0);
-	else
-		str = ft_strsub(s, i, ft_strlen(s) - i - j);
-	return (str);
+	if (!(s_new = (char*)malloc(sizeof(char))))
+		return (NULL);
+	ft_bzero(s_new, 1);
+	return (s_new);
 }
 
 char		*ft_strtrim(char const *s)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
 	j = 0;
-	if (s != NULL)
-	{
-		k = ft_strlen(s);
-		return (ft_realtrim(s, i, j, k));
-	}
-	return (NULL);
+	if (!s)
+		return (ft_returnblank());
+	if (!*s)
+		return (ft_returnblank());
+	while ((s[j] == ' ' || s[j] == '\n' || s[j] == '\t') && s[j] != '\0')
+		j++;
+	if (j == ft_strlen((char*)s))
+		return (ft_returnblank());
+	while (s[i] != '\0')
+		i++;
+	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t' || s[i] == '\0')
+		i--;
+	i++;
+	return (ft_strsub(s, j, (i - j)));
 }

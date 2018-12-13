@@ -3,49 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 13:48:30 by qgirard           #+#    #+#             */
-/*   Updated: 2018/11/16 15:45:25 by qgirard          ###   ########.fr       */
+/*   Created: 2018/11/08 20:08:16 by hklein            #+#    #+#             */
+/*   Updated: 2018/11/08 20:09:53 by hklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*concatener(char const *s1, char const *s2, int i, int j)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
+	char			*new_s;
+	unsigned int	i;
+	unsigned int	j;
 
-	if (!(str = (char *)malloc(sizeof(*str) *
-		(ft_strlen(s1) + ft_strlen(s2) + 1))))
+	if (!s1 || !s2)
 		return (NULL);
-	while (s1[i])
-	{
-		str[j] = s1[i];
-		i++;
-		j++;
-	}
-	i = 0;
-	while (s2[i])
-	{
-		str[j] = s2[i];
-		i++;
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
-}
-
-char		*ft_strjoin(char const *s1, char const *s2)
-{
-	int		i;
-	int		j;
-
+	if ((new_s = ft_strnew(ft_strlen((char*)s1) +
+		ft_strlen((char*)s2))) == NULL)
+		return (NULL);
 	i = 0;
 	j = 0;
-	if (s1 != NULL && s2 != NULL)
-	{
-		return (concatener(s1, s2, i, j));
-	}
-	return (NULL);
+	while (i < ft_strlen((char*)s1))
+		new_s[j++] = s1[i++];
+	i = 0;
+	while (i < ft_strlen((char*)s2))
+		new_s[j++] = s2[i++];
+	return (new_s);
 }
