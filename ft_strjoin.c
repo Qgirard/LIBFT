@@ -3,32 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hklein <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 20:08:16 by hklein            #+#    #+#             */
-/*   Updated: 2018/11/08 20:09:53 by hklein           ###   ########.fr       */
+/*   Created: 2018/11/13 13:48:30 by qgirard           #+#    #+#             */
+/*   Updated: 2018/11/21 16:56:47 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static char	*concatener(char const *s1, char const *s2, int i, int j)
 {
-	char			*new_s;
-	unsigned int	i;
-	unsigned int	j;
+	char	*str;
 
-	if (!s1 || !s2)
+	if (!(str = (char *)malloc(sizeof(*str) *
+		(ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (NULL);
-	if ((new_s = ft_strnew(ft_strlen((char*)s1) +
-		ft_strlen((char*)s2))) == NULL)
-		return (NULL);
+	while (s1[i])
+	{
+		str[j] = s1[i];
+		i++;
+		j++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		str[j] = s2[i];
+		i++;
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+char		*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+
 	i = 0;
 	j = 0;
-	while (i < ft_strlen((char*)s1))
-		new_s[j++] = s1[i++];
-	i = 0;
-	while (i < ft_strlen((char*)s2))
-		new_s[j++] = s2[i++];
-	return (new_s);
+	if (s1 != NULL && s2 != NULL)
+	{
+		return (concatener(s1, s2, i, j));
+	}
+	return (NULL);
 }
