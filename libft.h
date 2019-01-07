@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 16:55:13 by qgirard           #+#    #+#             */
-/*   Updated: 2018/12/14 13:01:49 by qgirard          ###   ########.fr       */
+/*   Updated: 2019/01/03 14:45:08 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
+# include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
@@ -96,8 +97,17 @@ void				ft_swap(int *a, int *b);
 int					ft_lstcount(t_list *alst);
 void				ft_printlist(t_list *list);
 void				*ft_realloc(void *ptr, size_t size);
-char				*ft_strjoinf(char *s1, char *s2);
+char				*ft_strjoinf(char *s1, char *s2, size_t rm);
 int					get_next_line(const int fd, char **line);
 char				*ft_strnjoinf(char *s1, char *s2, size_t rm, size_t len);
+char				*ft_itoa_base(int n, int base);
+char				*ft_toupperstr(char *str);
+char				*ft_tochartostr(int i);
+char				*ft_utoa_base(unsigned int n, int base);
+char				*ft_reallocstr(char *ptr, size_t size);
+char				*ft_ltoa(long n);
+char				*ft_ultoa_base(unsigned long n, int base);
+char				*ft_lltoa(long long n);
+char				*ft_stoa(short n);
 
 #endif

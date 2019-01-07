@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 12:51:21 by qgirard           #+#    #+#             */
-/*   Updated: 2018/12/14 12:51:55 by qgirard          ###   ########.fr       */
+/*   Updated: 2018/12/20 14:09:23 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ void	*ft_realloc(void *ptr, size_t size)
 	}
 	return (new);
 }
-
