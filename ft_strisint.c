@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strisint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 11:26:02 by qgirard           #+#    #+#             */
-/*   Updated: 2019/04/08 13:57:27 by qgirard          ###   ########.fr       */
+/*   Created: 2019/02/15 18:44:13 by qgirard           #+#    #+#             */
+/*   Updated: 2019/02/18 14:59:50 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalnum(int c)
+int		ft_strisint(char *str)
 {
-	if ((ft_isalpha(c) == 1) || (ft_isdigit(c) == 1))
-		return (1);
-	else
+	int		i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	if ((ft_strlen(str) >= 11 && str[0] != '-') || (ft_strlen(str) >= 12
+	&& str[0] == '-'))
 		return (0);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
